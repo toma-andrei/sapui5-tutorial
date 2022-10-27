@@ -1,0 +1,29 @@
+<!-- projectRoot.folder.View/ControllerName  -->
+<!-- xmlns: namespace for UI controls  -->
+<!-- xmlns:mvc: namespace for mvc library  -->
+<mvc:View
+	controllerName="tutorial.controller.App"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true"
+>
+	<Shell>
+		<!-- Shell limits the page width (the content under the top line)-->
+		<App class="myAppDemoWT">
+			<pages>
+				<Page title="{i18n>homePageTitle}">
+					<content>
+						<mvc:XMLView viewName="tutorial.view.HelloPanel"/>
+						<mvc:XMLView viewName="tutorial.view.InvoiceList"/>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
+<!-- 
+	classes for styling: 
+		https://help.sap.com/doc/saphelp_nw75/7.5.5/en-US/77/7168ffe8324873973151dae2356d1c/frameset.htm
+		sapUiSmallMarginBegin/Top/End...
+		sapUiResponsiveMargin
+ -->

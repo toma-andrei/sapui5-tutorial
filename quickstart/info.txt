@@ -1,0 +1,10 @@
+basic structure for project: webapp dir: index.html, index.js, manifest.json, view(dir), controller(dir)
+
+index.html este punctul de intrare in proiect. Aici se include biblioteca UI5. Tot continutul ulterior generat
+    este adaugat in body care contine o clasa "sapUiBody" si un id oarecare
+index.js este locul in care se randeaza view-urile si sunt plasate in body. 
+
+Un view este randat si in functie de atributele date, acesta se extinde cu un controller care contine
+    codul pentru functionalitatile acelui view. De exemplu functii pentru eventuri (press).
+
+

@@ -1,0 +1,19 @@
+<!-- Fragments are basically views with no controller (only UI parts) meaning them don't have any functionality-->
+<!-- simplified: fragments are containers for controls -->
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+>
+<!-- The Dialog control is used to prompt the user for an action or a confirmation. -->
+	<Dialog
+		id="helloDialog"
+		title="Hello {/recipient/name}">
+        <content>
+            <core:Icon src="sap-icon://hello-world" size="3rem" class="sapUiMediumMargin" />
+            <core:Icon src="sap-icon://accelerated" size="3rem" class="sapUiMediumMargin" />
+        </content>
+        <beginButton>
+            <Button text="{i18n>closeDialogButtonText}" press=".onCloseDialog"/>
+        </beginButton>
+</Dialog>
+</core:FragmentDefinition>

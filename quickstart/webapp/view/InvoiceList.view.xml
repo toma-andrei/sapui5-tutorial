@@ -5,10 +5,21 @@
 >
 	<List
 		headerText="{i18n>invoiceListTitle}"
+		id="invoiceListIdentifier"
 		class="sapUiResponsiveMargin"
 		width="auto"
 		items="{invoiceee>/Invoices}"
 	>
+		<headerToolbar>
+			<Toolbar>
+				<Title text="{i18n>invoiceListTitle}"/>
+				<ToolbarSpacer/>
+				<SearchField
+					width="50%"
+					search=".onFilterInvoices"
+				/>
+			</Toolbar>
+		</headerToolbar>
 		<items>
 			<!-- the number atribute is saying that the number within this object is formed of 2 parts and values for those parts can be found at specified paths. -->
 			<!-- type of number is saying how that number in interpreted as -->

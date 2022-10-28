@@ -26,13 +26,19 @@ sap.ui.define(
         //to use this model in view, we must call setModel() after we got the object of the view with getView()
         this.setModel(oModel);
 
-        // // ============== internationalization ================= commented cuz this steps are done automatically (see manifest.json)
+        // ============== internationalization ================= commented cuz this steps are done automatically (see manifest.json)
 
         // //instantiate a i18n model (a resource model)
         // let i18nModel = new ResourceModel({ bundleName: "tutorial.i18n.i18n" });
 
         // //to use the model in view, we must set it. After this, it is available in the view file.
         // this.setModel(i18nModel, "i18n");
+
+        // ============== router initialization =================
+        //initialize the router. We don't have to instantiate the router. This is done automatically based on manifest.json router configuration
+        // initializing the router will evaluate the current URL and load the corresponding view automatically. It is done
+        // <- via routes and targets from manifest.json. When a route is hit, corresponding view is diplayed.
+        this.getRouter().initialize();
       },
     });
   }

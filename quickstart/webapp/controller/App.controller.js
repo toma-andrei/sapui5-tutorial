@@ -5,6 +5,8 @@ sap.ui.define(
   function (Controller) {
     "use strict";
 
-    return Controller.extend("tutorial.controller.App", {});
+    return Controller.extend("tutorial.controller.App", {
+      onOpenDialog: function () {},
+    });
   }
 );

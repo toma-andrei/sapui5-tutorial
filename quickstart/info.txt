@@ -7,4 +7,28 @@ index.js este locul in care se randeaza view-urile si sunt plasate in body.
 Un view este randat si in functie de atributele date, acesta se extinde cu un controller care contine
     codul pentru functionalitatile acelui view. De exemplu functii pentru eventuri (press).
 
+STEP 25
+IN MANIFEST.JSON:
+    added a datasource configuration. With invoiceRemote key, we pecify a configuration object that allows automatic model instatiation
+    we specify the type of the service (Odata) and the model verison
+    to use the remote oData service, this must be palced in sap.app obj in manifest.json
+         "invoiceRemote": {
+          "uri": "https://services.odata.org/V2/Northwind/Northwind.svc/",
+          "type": "OData",
+          "settings": { "odataVersion": "2.0" }
+        },
+         "invoiceee": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "Invoices.json"
+      }
+
+STEP 30
+FOR ROUTING:
+    add in manifest.json as a child of sap.ui5:
+        routing : {config: {routerClass, type, viewType, path, controlId, controlAggregation}, routes, targets}
+            controlId is for letting framework know which is the Control within rendered views must be place depending on the URL
+    FLOW: add router data into manifest.json then initialize the router into Component.js. Set id on the control within
+    the following views will be insterted to be displayed. Now, whenever the url changes, router renders 
+    coresponding view. To create navigation items, is enough to create an event handler for "press" and use 
+    this.getOwnerComponent().getRouter().navTo("target").
 

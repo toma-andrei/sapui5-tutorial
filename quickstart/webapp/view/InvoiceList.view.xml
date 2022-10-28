@@ -3,12 +3,29 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 >
+<!-- items instead of "{invoiceee>/Invoices}"" is written in object-notation. This way we can add a sorter to the specified path. -->
+<!-- By default, sorter is ascending but a property "descending:true" can be added -->
+<!-- SORTS BY THE PRICE OF PRODUCT
+	items="{
+			path: 'invoiceee>/Invoices',
+			sorter: {
+				path: 'ExtendedPrice',
+				descending: false
+			}
+		}" -->
 	<List
 		headerText="{i18n>invoiceListTitle}"
 		id="invoiceListIdentifier"
 		class="sapUiResponsiveMargin"
 		width="auto"
-		items="{invoiceee>/Invoices}"
+		items="{
+			path: 'invoiceee>/Invoices',
+			sorter: {
+				path: 'ShipperName',
+				descending: false,
+				group: true
+			}
+		}"
 	>
 		<headerToolbar>
 			<Toolbar>
@@ -37,6 +54,8 @@
 				}"
 				numberUnit="{view>/currency}"
 				numberState="{= ${invoiceee>ExtendedPrice} > 50 ? 'Error' : 'Success' }"
+				type="Navigation"
+				press="onPress"
 			>
 				<firstStatus>
 					<ObjectStatus text="{

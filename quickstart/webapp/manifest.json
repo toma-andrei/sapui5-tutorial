@@ -42,14 +42,16 @@
       },
       "dataSources": {
         "invoiceRemote": {
-          "uri": "https://services.odata.org/V2/Northwind/Northwind.svc/",
+          "uri": "http://localhost:80",
           "type": "OData",
-          "settings": { "odataVersion": "2.0" }
+          "settings": {
+            "odataVersion": "2.0"
+          }
         }
       },
       "invoiceee": {
-        "type": "sap.ui.model.json.JSONModel",
-        "uri": "Invoices.json"
+        "uri": "Invoices.json",
+        "type": "sap.ui.model.json.JSONModel"
       }
     },
     "routing": {
@@ -63,7 +65,11 @@
       },
       "routes": [
         { "pattern": "", "name": "overview", "target": "overview" },
-        { "pattern": "detail", "name": "detail", "target": "detail" }
+        {
+          "pattern": "detail/{invoicePath}",
+          "name": "detail",
+          "target": "detail"
+        }
       ],
       "targets": {
         "overview": { "id": "overview", "name": "Overview" },

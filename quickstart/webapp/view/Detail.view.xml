@@ -1,8 +1,12 @@
 <mvc:View
+	controllerName="tutorial.controller.Detail"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 >
 	<Page title="{i18n>detailPageTitle}">
-		<ObjectHeader title="Invoice"/>
+		<ObjectHeader
+			intro="{invoice>ShipperName}"
+			title="{invoice>ProductName}"
+		/>
 	</Page>
 </mvc:View>

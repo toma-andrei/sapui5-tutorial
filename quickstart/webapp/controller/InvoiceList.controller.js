@@ -43,8 +43,15 @@ sap.ui.define(
         oBinding.filter(aFilter);
       },
       onPress: function (oEvent) {
+        // getSource is available in any SAPUI5 event. It returns a reference to object within this event was called
+        let oItem = oEvent.getSource();
         let oRouter = this.getOwnerComponent().getRouter();
-        oRouter.navTo("detail");
+        console.log(oItem.getBindingContext("invoiceee"));
+        oRouter.navTo("detail", {
+          invoicePath: window.encodeURIComponent(
+            oItem.getBindingContext("invoiceee").getPath().substr(1)
+          ),
+        });
         // setTimeout(() => {
         //   oRouter.navTo("overview");
         // }, 2000);

@@ -5,6 +5,22 @@
 	xmlns:mvc="sap.ui.core.mvc"
 >
 	<Page title="{i18n>homePageTitle}">
+		<landmarkInfo>
+			<!-- contentLabel = Texts that describe the landmark of the content container -->
+			<!-- contentRole = Landmark role of the content container -->
+			<!-- headerLabel = Texts that describe the landmark of the header container -->
+			<!-- headerRole = Landmark role of the header container -->
+			<!-- rootLabel = Texts that describe the landmark of the root container -->
+			<!-- rootRole = Landmark role of the root container -->
+			<PageAccessibleLandmarkInfo
+				contentLabel="{i18n>Overview_rootLabel}"
+				contentRole="Main"
+				headerLabel="{i18n>Overview_headerLabel}"
+				headerRole="Banner"
+				rootLabel="{i18n>OverView_rootLabel}"
+				rootRole="Region"
+			/>
+		</landmarkInfo>
 		<headerContent>
 			<Button
 				icon="sap-icon://hello-world"

@@ -3,6 +3,21 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 >
+
+<Panel accessibleRole="Region">
+	<headerToolbar>
+		<Toolbar>
+			<Title text="{i18n>invoiceListTitle}"/>
+			<ToolbarSpacer/>
+			<SearchField width="50%" 
+						 search=".onFilterInvoices" 
+						 ariaLabelledBy="searchFieldLabel" 
+						 ariaDescribedBy="searchFieldDescription"
+						 placeholder="{i18n>searchFieldPlaceholder}"/>
+						 
+		</Toolbar>
+	</headerToolbar>
+
 <!-- items instead of "{invoiceee>/Invoices}"" is written in object-notation. This way we can add a sorter to the specified path. -->
 <!-- By default, sorter is ascending but a property "descending:true" can be added -->
 <!-- SORTS BY THE PRICE OF PRODUCT
@@ -28,14 +43,6 @@
 		}"
 	>
 		<headerToolbar>
-			<Toolbar>
-				<Title text="{i18n>invoiceListTitle}"/>
-				<ToolbarSpacer/>
-				<SearchField
-					width="50%"
-					search=".onFilterInvoices"
-				/>
-			</Toolbar>
 		</headerToolbar>
 		<columns>
 			<!-- hAling = horizontal align -->
@@ -121,4 +128,5 @@
 			</ObjectListItem>
 		</items> -->
 	</Table>
+</Panel>
 </mvc:View>

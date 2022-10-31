@@ -24,7 +24,16 @@ sap.ui.define(
           // instantiate and add it to this
           this.pDialog = this.loadFragment({
             name: "tutorial.view.HelloDialog",
-          });
+          }).then(
+            function (oDialog) {
+              syncStyleClass(
+                this.getOwnerComponent().getContentDensityClass(),
+                this.getView(),
+                oDialog
+              );
+              return oDialog;
+            }.bind(this)
+          );
         }
         //after it is created, display it
         this.pDialog.then((oDialog) => {

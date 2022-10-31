@@ -2,11 +2,55 @@
 	controllerName="tutorial.controller.Detail"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
+	xmlns:trl="tutorial.control"
 >
-	<Page title="{i18n>detailPageTitle}">
+	<Page
+		title="{i18n>detailPageTitle}"
+		showNavButton="true"
+		navButtonPress=".onNavBack"
+	>
 		<ObjectHeader
-			intro="{invoice>ShipperName}"
-			title="{invoice>ProductName}"
+			intro="{invoiceee>ShipperName}"
+			title="{invoiceee>ProductName}"
+			responsive="true"
+			fullScreenOptimized="true"
+			number="{
+				parts: [{
+					path: 'invoiceee>ExtendedPrice'
+				}, {
+					path: 'view>/currency'
+				}],
+				type: 'sap.ui.model.type.Currency',
+				formatOptions: {
+					showMeasure: false
+				}
+			}"
+			numberUnit="{view/currency}"
+		>
+			<attributes>
+				<ObjectAttribute
+					title="{i18n>quantityTitle}"
+					text="{invoiceee>Quantity}"
+				/>
+				<ObjectAttribute
+					title="{i18n>dateTitle}"
+					text="{
+						path: 'invoiceee>ShippedDate',
+						type: 'sap.ui.model.type.Date',
+						formatOptions: {
+							style: 'long',
+							source: {
+								pattern: 'yyyy-MM-ddTHH:mm:ss'
+							}
+						}
+					}"
+				/>
+			</attributes>
+		</ObjectHeader>
+		<trl:ProductRating
+			id="rating"
+			class="sapUiSmallMarginBeginEnd"
+			change=".onRatingChange"
 		/>
 	</Page>
 </mvc:View>

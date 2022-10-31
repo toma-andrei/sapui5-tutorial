@@ -1,6 +1,6 @@
 sap.ui.define(
-  ["sap/ui/core/UIComponent", "sap/ui/model/json/JSONModel"],
-  function (UIComponent, JSONModel) {
+  ["sap/ui/core/UIComponent", "sap/ui/model/json/JSONModel", "sap/ui/Device"],
+  function (UIComponent, JSONModel, Device) {
     "use strict";
 
     return UIComponent.extend("tutorial.Component", {
@@ -34,11 +34,34 @@ sap.ui.define(
         // //to use the model in view, we must set it. After this, it is available in the view file.
         // this.setModel(i18nModel, "i18n");
 
-        // ============== router initialization =================
+        // ============== set device model =================
+
+        //initialize the device model
+        // this makes deviceAPI properties available as a JSON model
+        let oDeviceModel = new JSONModel(Device);
+
+        //set binding mode to OneWay to avoid changing the model accidentally when we bind properties of a control to it
+        oDeviceModel.setDefaultBindingMode("OneWay");
+        this.setModel(oDeviceModel, "device");
+
         //initialize the router. We don't have to instantiate the router. This is done automatically based on manifest.json router configuration
         // initializing the router will evaluate the current URL and load the corresponding view automatically. It is done
         // <- via routes and targets from manifest.json. When a route is hit, corresponding view is diplayed.
         this.getRouter().initialize();
+      },
+
+      // this method queries the deviceAPI for touch support of the client and returns the CSS class for the specific size (compact/cozy)
+      getContentDensityClass: function () {
+        //compact size = optimized for Desktop and non-touch devices
+        //cozy size = optimized for phones / touch devices
+        if (!this._sContentDensityClass) {
+          if (!Device.support.touch) {
+            this._sContentDensityClass = "sapUiSizeCompact";
+          } else {
+            this._sContentDensityClass = "sapUiSizeCozy";
+          }
+        }
+        return this._sContentDensityClass;
       },
     });
   }

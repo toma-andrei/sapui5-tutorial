@@ -6,6 +6,12 @@ sap.ui.define(
     "use strict";
 
     return Controller.extend("tutorial.controller.App", {
+      onInit: function () {
+        //when app is initialized it sets the specific CSS for the device size: compact or cozy size
+        this.getView().addStyleClass(
+          this.getOwnerComponent().getContentDensityClass()
+        );
+      },
       onOpenDialog: function () {},
     });
   }

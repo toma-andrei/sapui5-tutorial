@@ -46,7 +46,7 @@ sap.ui.define(
         // getSource is available in any SAPUI5 event. It returns a reference to object within this event was called
         let oItem = oEvent.getSource();
         let oRouter = this.getOwnerComponent().getRouter();
-        console.log(oItem.getBindingContext("invoiceee"));
+        // console.log(oItem.getBindingContext("invoiceee"));
         oRouter.navTo("detail", {
           invoicePath: window.encodeURIComponent(
             oItem.getBindingContext("invoiceee").getPath().substr(1)

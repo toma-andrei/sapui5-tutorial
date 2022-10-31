@@ -13,7 +13,7 @@
 				descending: false
 			}
 		}" -->
-	<List
+	<Table
 		headerText="{i18n>invoiceListTitle}"
 		id="invoiceListIdentifier"
 		class="sapUiResponsiveMargin"
@@ -37,11 +37,66 @@
 				/>
 			</Toolbar>
 		</headerToolbar>
-		<items>
+		<columns>
+			<!-- hAling = horizontal align -->
+			<!-- minScreenWidth: Small - tells that this column is not important on phones -->
+			<!-- demandPopin: true - We will tell the table to display this column below the main column -->
+				<Column
+					hAlign="End"
+					minScreenWidth="Small"
+					demandPopin="true"
+					width="4em">
+					<Text text="{i18n>columnQuantity}"/>
+				</Column>
+				<Column>
+					<Text text="{i18n>columnName}"/>
+				</Column>
+				<Column
+					minScreenWidth="Small"
+					demandPopin="true">
+					<Text text="{i18n>columnStatus}"/>
+				</Column>
+				<Column
+					minScreenWidth="Tablet"
+					demandPopin="false">
+					<Text text="{i18n>columnSupplier}"/>
+				</Column>
+				<Column
+					hAlign="End">
+					<Text text="{i18n>columnPrice}"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem
+					type="Navigation"
+					press=".onPress">
+					<cells>
+						<ObjectNumber number="{invoiceee>Quantity}" emphasized="false"/>
+						<ObjectIdentifier title="{invoiceee>ProductName}"/>
+						<Text text="{
+							path: 'invoiceee>Status',
+							formatter: '.formatter.statusText'
+						}"/>
+						<Text text="{invoiceee>ShipperName}"/>
+						<ObjectNumber
+							number="{
+								parts: [{path: 'invoiceee>ExtendedPrice'}, {path: 'view>/currency'}],
+								type: 'sap.ui.model.type.Currency',
+								formatOptions: {
+									showMeasure: false
+								}
+							}"
+							unit="{view>/currency}"
+							state="{= ${invoiceee>ExtendedPrice} > 50 ? 'Error' : 'Success' }"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+
+		<!-- <items> -->
 			<!-- the number atribute is saying that the number within this object is formed of 2 parts and values for those parts can be found at specified paths. -->
 			<!-- type of number is saying how that number in interpreted as -->
 			<!-- numberState is an expression: a special syntax delimited by "{= ... }". Data to be bind in the expresion is written within "${data_to_be_bind}" -->
-			<ObjectListItem
+			<!-- <ObjectListItem
 				title="{invoiceee>Quantity} x {invoiceee>ProductName}"
 				number="{
 					parts: [{
@@ -64,6 +119,6 @@
 					}"/>
 				</firstStatus>
 			</ObjectListItem>
-		</items>
-	</List>
+		</items> -->
+	</Table>
 </mvc:View>

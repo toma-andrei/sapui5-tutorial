@@ -2,19 +2,66 @@
 	controllerName="sap.ui.core.tutorial.odatav4.controller.App"
 	displayBlock="true"
 	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc">
+	xmlns:mvc="sap.ui.core.mvc"
+>
 	<Shell>
-		<App busy="{appView>/busy}" class="sapUiSizeCompact">
+		<App
+			busy="{appView>/busy}"
+			class="sapUiSizeCompact"
+		>
 			<pages>
 				<Page title="{i18n>peoplePageTitle}">
 					<content>
+						<!-- $$updateGroupId means that changes in the table ar not sent automatically but instead are collected when we explicitly send them -->
 						<Table
 							id="peopleList"
 							growing="true"
 							growingThreshold="10"
 							items="{
-								path: '/People'
-							}">
+								path: '/People',
+								parameters: {
+									$count: true,
+									$$updateGroupId: 'peopleGroup'
+								}
+							}"
+						>
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<ToolbarSpacer/>
+										<SearchField
+											id="searchField"
+											width="20%"
+											enabled="{= !${appView>/hasUIChanges}}"
+											placeholder="{i18n>searchFieldPlaceholder}"
+											search=".onSearch"
+										/>
+										<Button
+											id="addUserButton"
+											icon="sap-icon://add"
+											tooltip="{i18n>createButtonText}"
+											press=".onCreate"
+										>
+											<layoutData>
+												<OverflowToolbarLayoutData priority="NeverOverflow"/>
+											</layoutData>
+										</Button>
+										<Button
+											id="refreshUserButton"
+											icon="sap-icon://refresh"
+											tooltip="{i18n>refreshButtonText}"
+											press=".onRefresh"
+										/>
+										<Button
+											id="sortUsersButton"
+											icon="sap-icon://sort"
+											enabled="{= !${appView>/hasUIChanges}}"
+											tooltip="{i18n>sortButtonText}"
+											press=".onSort"
+										/>
+									</content>
+								</OverflowToolbar>
+							</headerToolbar>
 							<columns>
 								<Column id="userNameColumn">
 									<Text text="{i18n>userNameLabelText}"/>
@@ -32,21 +79,49 @@
 							<items>
 								<ColumnListItem>
 									<cells>
-										<Input value="{UserName}"/>
+										<Input
+											value="{UserName}"
+											valueLiveUpdate="true"
+											liveChange=".onInputChange"
+										/>
 									</cells>
 									<cells>
-										<Input value="{FirstName}"/>
+										<Input
+											value="{FirstName}"
+											liveChange=".onInputChange"
+										/>
 									</cells>
 									<cells>
 										<Input value="{LastName}"/>
 									</cells>
 									<cells>
-										<Input value="{Age}"/>
+										<Input
+											value="{Age}"
+											valueLiveUpdate="true"
+											liveChange=".onInputChange"
+										/>
 									</cells>
 								</ColumnListItem>
 							</items>
 						</Table>
 					</content>
+					<footer>
+						<Toolbar visible="{appView>/hasUIChanges}">
+							<ToolbarSpacer/>
+							<Button
+								id="saveButton"
+								type="Emphasized"
+								text="{i18n>saveButtonText}"
+								enabled="{= ${message>/}.length === 0 &amp;&amp; ${appView>/usernameEmpty} === false }"
+								press=".onSave"
+							/>
+							<Button
+								id="doneButton"
+								text="{i18n>cancelButtonText}"
+								press=".onResetChanges"
+							/>
+						</Toolbar>
+					</footer>
 				</Page>
 			</pages>
 		</App>

@@ -1,0 +1,5 @@
+OData este un protocol standard pentru a crea si consuma date folosind http si API-uri rest pentru operatii CRUD
+
+Batch groups = folosite pentru a grupa mai multe cereri intr-una singura catre server pentru a creste performanta
+    Asta se intampla daca adaugam in manifest.json campul "groupId": "$auto" in obiectul specific pentru "dataSource": "srcName"
+    un request batched poate fi identificat prin sufixul $batch

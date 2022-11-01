@@ -34,44 +34,24 @@ sap.ui.define(
         // this.getView().setModel(oModel, "appView");
 
         // hasUIChanges and usernameEmpty are used to make specific controls visible / enabled during user entries
-        // let oViewModel = new JSONModel({
-        //   busy: false,
-        //   hasUIChanges: false,
-        //   usernameEmpty: true,
-        //   order: 0,
-        // });
-        // this.getView().setModel(oViewModel, "appView");
-
-        // //make Message model available in the view
-        // //when OData service reports any error while writing data, OData Model adds them to MessageModel so they are available in the view
-        // let oMessageManager = sap.ui.getCore().getMessageManager();
-        // let oMessageModel = oMessageManager.getMessageModel();
-        // let oMessageModelBinding = oMessageModel.bindList(
-        //   "/",
-        //   undefined,
-        //   [],
-        //   new Filter("technical", FilterOperator.EQ, true)
-        // );
-        // this.getView().setModel(oMessageModel, "message");
-
-        // oMessageModelBinding.attachChange(this.onMessageBindingChange, this);
-        // this._bTechnicalErrors = false;
-
-        var oMessageManager = sap.ui.getCore().getMessageManager(),
-          oMessageModel = oMessageManager.getMessageModel(),
-          oMessageModelBinding = oMessageModel.bindList(
-            "/",
-            undefined,
-            [],
-            new Filter("technical", FilterOperator.EQ, true)
-          ),
-          oViewModel = new JSONModel({
-            busy: false,
-            hasUIChanges: false,
-            usernameEmpty: true,
-            order: 0,
-          });
+        let oViewModel = new JSONModel({
+          busy: false,
+          hasUIChanges: false,
+          usernameEmpty: true,
+          order: 0,
+        });
         this.getView().setModel(oViewModel, "appView");
+
+        //make Message model available in the view
+        //when OData service reports any error while writing data, OData Model adds them to MessageModel so they are available in the view
+        let oMessageManager = sap.ui.getCore().getMessageManager();
+        let oMessageModel = oMessageManager.getMessageModel();
+        let oMessageModelBinding = oMessageModel.bindList(
+          "/",
+          undefined,
+          [],
+          new Filter("technical", FilterOperator.EQ, true)
+        );
         this.getView().setModel(oMessageModel, "message");
 
         oMessageModelBinding.attachChange(this.onMessageBindingChange, this);
@@ -102,6 +82,29 @@ sap.ui.define(
           }
         });
       },
+
+      onDelete: function () {
+        //get selected items from table
+        var oSelected = this.byId("peopleList").getSelectedItem();
+
+        // if there is at least one selected item
+        if (oSelected) {
+          //get binding context and call delete method
+          oSelected
+            .getBindingContext()
+            // delete is set to $auto to make sure that the request to the service is sent immediately as a batch request
+            .delete("$auto")
+            .then(
+              function () {
+                MessageToast.show(this._getText("deletionSuccessMessage", []));
+              }.bind(this),
+              function (oError) {
+                MessageBox.error(oError.message);
+              }
+            );
+        }
+      },
+
       //manages entries in any Input field and triggers updates to the appView model
       onInputChange: function (oEvt) {
         if (oEvt.getParameter("escPressed")) {
